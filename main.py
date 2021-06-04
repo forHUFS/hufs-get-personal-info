@@ -1,5 +1,7 @@
 import json
 
+from worker.sql      import close_connection
+from worker.errors   import NotFoundException
 from worker.crawling import check_user_graduated
 
 
@@ -24,6 +26,15 @@ def lambda_handler(event, context):
                 })
             }
 
+    except NotFoundException:
+        return {
+            "statusCode": 404,
+            "body": json.dumps({
+                "data": "",
+                "message": "NOT_FOUND"
+            })            
+        }
+
     except Exception as error:
         return {
             "statusCode": 500,
@@ -32,3 +43,6 @@ def lambda_handler(event, context):
                 "message": error
             })
         }
+    
+    finally:
+        close_connection()
