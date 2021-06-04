@@ -1,13 +1,21 @@
 import json
 
-from worker.sql      import close_connection
-from worker.errors   import NotFoundException
-from worker.crawling import check_user_graduated
+from worker.sql                 import close_connection
+from worker.crawling            import check_user_graduated
+
+from selenium.common.exceptions import UnexpectedAlertPresentException
 
 
 def lambda_handler(event, context):
     try:
-        if check_user_graduated(user_id=event['id'], password=event['password']):
+        body    = json.loads(event['body'])
+        checker = check_user_graduated(
+            user_pk  = body['pk'],
+            user_id  = body['id'],
+            password = body['password']
+        )
+        
+        if checker:
             return {
                 "statusCode": 200,
                 "body": json.dumps({
@@ -25,21 +33,22 @@ def lambda_handler(event, context):
                 })
             }
 
-    except NotFoundException:
+    except UnexpectedAlertPresentException:
         return {
-            "statusCode": 404,
+            "statusCode": 401,
             "body": json.dumps({
                 "data": "",
-                "message": "NOT_FOUND"
-            })            
+                "message": "UNAUTHORIZED"
+            })
         }
 
     except Exception as error:
+        print(error)
         return {
             "statusCode": 500,
             "body": json.dumps({
                 "data": "",
-                "message": error
+                "message": "SERVER_ERROR"
             })
         }
     

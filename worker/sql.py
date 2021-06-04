@@ -22,8 +22,3 @@ def update_user_type(user_pk):
     query = f'UPDATE users SET type="graduated" WHERE id={user_pk}'
     cursor.execute(query)
     conn.commit()
-
-    result = cursor.fetchone()
-
-    if not result:
-        raise NotFoundException(message='NOT_FOUND')
