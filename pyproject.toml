@@ -1,0 +1,16 @@
+[tool.poetry]
+name = "hufs-get-personal-info"
+version = "0.1.0"
+description = "한국외국어대학교 커뮤니티 웹 서비스 <HUFSpace> 졸업생 인증 및 학점 등의 개인정보 크롤링 서비스"
+authors = ["2_taehyun <63915557+0417taehyun@users.noreply.github.com>"]
+
+[tool.poetry.dependencies]
+python = "^3.6"
+selenium = "^3.141.0"
+PyMySQL = "^1.0.2"
+
+[tool.poetry.dev-dependencies]
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
