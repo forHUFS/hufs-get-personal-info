@@ -7,6 +7,12 @@ test/
 # Config File
 config.py
 
+# Lambda Upload Zip File
+lambda_function.zip
+
+# Mac OS File
+.DS_Store
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

@@ -5,7 +5,6 @@ from worker.errors   import NotFoundException
 from worker.crawling import check_user_graduated
 
 
-
 def lambda_handler(event, context):
     try:
         if check_user_graduated(user_id=event['id'], password=event['password']):
