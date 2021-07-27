@@ -8,6 +8,24 @@ from selenium.common.exceptions import UnexpectedAlertPresentException
 
 def lambda_handler(event, context):
     try:
+        if event['httpMethod'] == 'OPTIONS':
+            return {
+                "statusCode": 200,
+                "headers": {
+                    "Access-Control-Allow-Headers": "Origin, Content-Type, X-Auth-Token",
+                    "Access-Control-Allow-Origin": [
+                        "http://localhost:3000",
+                        "https://hufspace.com"    
+                    ],
+                    "Access-Control-Allow-Methods": "POST, PUT, GET, OPTIONS",
+                    "Access-Control-Allow-Credentials": True
+                },
+                "body": json.dumps({
+                    "data": "",
+                    "message": ""
+                })
+            }
+        
         body    = json.loads(event['body'])
         checker = check_user_graduated(
             user_pk  = body['pk'],
@@ -18,6 +36,15 @@ def lambda_handler(event, context):
         if checker:
             return {
                 "statusCode": 200,
+                "headers": {
+                    "Access-Control-Allow-Headers": "Origin, Content-Type, X-Auth-Token",
+                    "Access-Control-Allow-Origin": [
+                        "http://localhost:3000",
+                        "https://hufspace.com"
+                    ],
+                    "Access-Control-Allow-Methods": "POST, PUT, GET, OPTIONS",
+                    "Access-Control-Allow-Credentials": True
+                },
                 "body": json.dumps({
                     "data": "",
                     "message": ""
@@ -27,6 +54,15 @@ def lambda_handler(event, context):
         else:
             return {
                 "statusCode": 400,
+                "headers": {
+                    "Access-Control-Allow-Headers": "Origin, Content-Type, X-Auth-Token",
+                    "Access-Control-Allow-Origin": [
+                        "http://localhost:3000",
+                        "https://hufspace.com"
+                    ],
+                    "Access-Control-Allow-Methods": "POST, PUT, GET, OPTIONS",
+                    "Access-Control-Allow-Credentials": True
+                },                
                 "body": json.dumps({
                     "data": "",
                     "message": "UNGRADUATED"
@@ -36,6 +72,15 @@ def lambda_handler(event, context):
     except UnexpectedAlertPresentException:
         return {
             "statusCode": 401,
+            "headers": {
+                "Access-Control-Allow-Headers": "Origin, Content-Type, X-Auth-Token",
+                "Access-Control-Allow-Origin": [
+                    "http://localhost:3000",
+                    "https://hufspace.com"
+                ],
+                "Access-Control-Allow-Methods": "POST, PUT, GET, OPTIONS",
+                "Access-Control-Allow-Credentials": True
+            },             
             "body": json.dumps({
                 "data": "",
                 "message": "UNAUTHORIZED"
@@ -46,6 +91,15 @@ def lambda_handler(event, context):
         print(error)
         return {
             "statusCode": 500,
+            "headers": {
+                "Access-Control-Allow-Headers": "Origin, Content-Type, X-Auth-Token",
+                "Access-Control-Allow-Origin": [
+                    "http://localhost:3000",
+                    "https://hufspace.com"
+                ],
+                "Access-Control-Allow-Methods": "POST, PUT, GET, OPTIONS",
+                "Access-Control-Allow-Credentials": True
+            },             
             "body": json.dumps({
                 "data": "",
                 "message": "SERVER_ERROR"

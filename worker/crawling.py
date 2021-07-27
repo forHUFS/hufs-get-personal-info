@@ -1,6 +1,6 @@
-from config                   import URL
-from worker.sql               import update_user_type
-from worker.driver            import WebDriver
+from config        import URL
+from worker.sql    import update_user_type
+from worker.driver import WebDriver
 
 
 def check_user_graduated(user_pk, user_id, password):
