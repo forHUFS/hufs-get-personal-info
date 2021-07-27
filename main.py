@@ -8,15 +8,14 @@ from selenium.common.exceptions import UnexpectedAlertPresentException
 
 def lambda_handler(event, context):
     try:
+        origin = event['headers']['origin']
+        print(origin)
         if event['httpMethod'] == 'OPTIONS':
             return {
                 "statusCode": 200,
                 "headers": {
                     "Access-Control-Allow-Headers": "Origin, Content-Type, X-Auth-Token",
-                    "Access-Control-Allow-Origin": [
-                        "http://localhost:3000",
-                        "https://hufspace.com"    
-                    ],
+                    "Access-Control-Allow-Origin": origin,
                     "Access-Control-Allow-Methods": "POST, PUT, GET, OPTIONS",
                     "Access-Control-Allow-Credentials": True
                 },
@@ -38,10 +37,7 @@ def lambda_handler(event, context):
                 "statusCode": 200,
                 "headers": {
                     "Access-Control-Allow-Headers": "Origin, Content-Type, X-Auth-Token",
-                    "Access-Control-Allow-Origin": [
-                        "http://localhost:3000",
-                        "https://hufspace.com"
-                    ],
+                    "Access-Control-Allow-Origin": origin,
                     "Access-Control-Allow-Methods": "POST, PUT, GET, OPTIONS",
                     "Access-Control-Allow-Credentials": True
                 },
@@ -56,10 +52,7 @@ def lambda_handler(event, context):
                 "statusCode": 400,
                 "headers": {
                     "Access-Control-Allow-Headers": "Origin, Content-Type, X-Auth-Token",
-                    "Access-Control-Allow-Origin": [
-                        "http://localhost:3000",
-                        "https://hufspace.com"
-                    ],
+                    "Access-Control-Allow-Origin": origin,
                     "Access-Control-Allow-Methods": "POST, PUT, GET, OPTIONS",
                     "Access-Control-Allow-Credentials": True
                 },                
@@ -74,10 +67,7 @@ def lambda_handler(event, context):
             "statusCode": 401,
             "headers": {
                 "Access-Control-Allow-Headers": "Origin, Content-Type, X-Auth-Token",
-                "Access-Control-Allow-Origin": [
-                    "http://localhost:3000",
-                    "https://hufspace.com"
-                ],
+                "Access-Control-Allow-Origin": origin,
                 "Access-Control-Allow-Methods": "POST, PUT, GET, OPTIONS",
                 "Access-Control-Allow-Credentials": True
             },             
@@ -93,10 +83,7 @@ def lambda_handler(event, context):
             "statusCode": 500,
             "headers": {
                 "Access-Control-Allow-Headers": "Origin, Content-Type, X-Auth-Token",
-                "Access-Control-Allow-Origin": [
-                    "http://localhost:3000",
-                    "https://hufspace.com"
-                ],
+                "Access-Control-Allow-Origin": origin,
                 "Access-Control-Allow-Methods": "POST, PUT, GET, OPTIONS",
                 "Access-Control-Allow-Credentials": True
             },             
